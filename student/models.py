@@ -53,7 +53,7 @@ class Marks(models.Model):
     practical=models.IntegerField(blank=True,null=True)
     total=models.IntegerField(blank=True,null=True)
     grade=models.CharField(max_length=150,blank=True,null=True)
-    cpa=models.CharField(max_length=150,blank=True,null=True)
+    cgpa=models.CharField(max_length=150,blank=True,null=True)
      
     class Meta:
         ordering = ['serial']
@@ -65,7 +65,37 @@ class Marks(models.Model):
         if self.subject is not None:
             return self.subject.name_en
     def save(self, *args, **kwargs):
+        total=0
         if self.CQ:
+            total=total+self.CQ
             if self.CQ<30:
                 self.grade="F"
+                self.cgpa=0
+
+        if self.MCQ:
+            total=total+self.MCQ
+            if self.MCQ<10:
+                self.cgpa=0
+                self.grade="F"
+        
+        self.total=total
+
+        if self.grade is not 'F':
+            if total<33:
+                self.cgpa=0
+            elif total>33 and total<=40:
+                 self.cgpa=2
+            elif total>40 and total<=59:
+                 self.cgpa=2.5
+            elif total>59 and total<=69:
+                 self.cgpa=3
+            elif total>69 and total<=79:
+                 self.cgpa=4
+            else:
+                self.cgpa=5
+        else: 
+            self.cgpa=0
+
+
+
         super(Marks, self).save(*args, **kwargs)

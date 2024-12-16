@@ -1,0 +1,542 @@
+<html>
+{%load static%}
+<head>
+  <style type="text/css" media="screen">
+    @font-face {
+      font-family: "kalpurush";
+      src: url("//file-rajshahi.portal.gov.bd/media/central/themes/theme-default/fonts/Kalpurush.woff") format("woff");
+               
+    }
+  </style>
+  
+<style>
+body{
+    font-family: "kalpurush";
+    font-weight: normal;
+    font-style:normal;
+        
+      
+}
+#first_table{
+    width:80%;
+}
+    .row{
+        margin-left:15%;
+    }
+  button#print, button#next-btn, button#submit-btn {
+  font-size: 17px;
+  font-weight: bold;
+  position: relative;
+  width: 300px;
+  height: 50px;
+  background: #DC3545;
+  margin-left: 50%;
+  margin-top: 20px;
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  transition: color .3s;
+  text-align: center;
+  color: #fff;
+  border: 0;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+button#print:after, button#next-btn:after, button#submit-btn:after {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #05812a;
+  content: "";
+  z-index: -2;
+  transition: transform .3s;
+}
+button#print:hover::after, button#next-btn:hover::after, button#submit-btn:hover::after {
+  transform: translateY(-80%);
+  transition: transform .3s;
+}
+#bg_image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:1000px;
+  height:1100;
+}
+.top-right {
+  width: 10%;
+position: absolute;
+top: 60%;
+left: 65%;
+}
+.top-middle {
+  width: 50%;
+  position: absolute;
+  top: 30%;
+  margin-left: 25%;
+  margin-right: 25%;
+  
+  }
+
+.bottom-right {
+  width: 100%;
+  position: absolute;
+  top: 80%;
+  text-align:right;
+  margin-left:25%;
+ 
+}
+.top-left {
+  width: 50%;
+  position: absolute;
+  top: 80%;
+  margin-left: 25%;
+  margin-right: 25%;
+ 
+}
+#x {
+color: red !important;
+text-align:center;
+margin-left: 25%;
+margin-right: 25%;
+}
+#heading {
+  color: #000080 !important;;
+}
+#graph-image{
+opacity: 0.1; 
+left: 0; 
+right: 0; 
+position: absolute;
+ margin-left: 30%; 
+ margin-right: 11%; 
+ margin-top: -40%;
+}
+
+#google_translate_element{
+diplay:none;
+}
+table, th, td {
+border: none;
+
+
+}
+u {    
+border-bottom: 1px dotted #000;
+text-decoration: none;
+}
+
+
+@media print and (min-width: 480px) {
+    #first_table{
+        width:100%;
+    }
+  @font-face {
+    font-family: "kalpurush";
+    src: url("//file-rajshahi.portal.gov.bd/media/central/themes/theme-default/fonts/Kalpurush.eot");
+    src: url("//file-rajshahi.portal.gov.bd/media/central/themes/theme-default/fonts/Kalpurush.woff") format("woff"),
+      url("//file-rajshahi.portal.gov.bd/media/central/themes/theme-default/fonts/Kalpurush.ttf") format("truetype"),
+      url("//file-rajshahi.portal.gov.bd/media/central/themes/theme-default/fonts/Kalpurush.svg#Kalpurush") format("svg"),
+      url("//file-rajshahi.portal.gov.bd/media/central/themes/theme-default/fonts/Kalpurush.eot?#iefix") format("embedded-opentype");
+    font-weight: normal;
+    font-style: normal;
+    }
+body{
+    font-family: "kalpurush";
+             
+}
+#bg_image{
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+  width:900;
+  height:1000;
+}
+.top-right {
+    width: 50%;
+position: absolute;
+top: 26%;
+left: 76%;
+}
+.top-middle {
+width: 75%;
+position: absolute;
+top:7%;
+margin-left: 12%;
+margin-right: 12%;
+
+}
+
+.bottom-right {
+    width: 100%;
+    position: absolute;
+    top: 80%;
+    text-align:right;
+  }
+.top-left {
+    width: 75%;
+    position: absolute;
+    top: 34%;
+    margin-left: 12%;
+    margin-right: 12%;
+  }
+#x {
+  color: red !important;
+  text-align:center;
+  margin-left: 15%;
+  margin-right:15%;
+}
+#heading {
+    color: #000080 !important;;
+  }
+#submit-btn {
+  display: none !important;;
+}
+#graph-image{
+  opacity: 0.1; 
+  left: 0; 
+  right: 0; 
+  position: absolute; 
+  margin-left: 22%; 
+  margin-right: 11%; 
+  margin-top: -70%;
+}
+
+#google_translate_element{
+  diplay:none;
+}
+}
+@media only screen and(max-width:978px){
+    #first_table{
+        width:100%;
+    }
+  .top-right {
+    width: 10%;
+  position: absolute;
+  top: 60%;
+  left: 65%;
+  }
+  .top-middle {
+    width: 100%;
+    position: absolute;
+    top: -700px;
+    margin-left: 25%;
+    margin-right: 25%;
+    
+    }
+  
+  .bottom-right {
+    width: 100%;
+    position: absolute;
+    top: 80%;
+    text-align:right;
+    margin-left:25%;
+   
+  }
+  .top-left {
+    width: 50%;
+    position: absolute;
+    top: 0%;
+    margin-left: 25%;
+    margin-right: 25%;
+   
+  }
+  #x {
+  color: red !important;
+  text-align:center;
+  margin-left: 25%;
+  margin-right: 25%;
+  }
+}
+
+</style>
+</head>
+<body >
+<table  id="first_table" border="0" align="center">
+    <tr>
+        <td>
+<div class="container home-page" id="column"  style="height: 1000px;">
+    <button id="submit-btn" class="btn-default" onclick="window.print()" >Download or Print</button>
+
+    <div id="container_id" class="container">
+
+              <table width="100%" border="0" align="center" style="margin-bottom: 10px;" >
+                  <thead style=" background-color: #a6d1fb; color: #e03838;">
+                    <th width="10%" style=" background-color:  #a6d1fb; color: #0f0f0f; padding: 15px; margin-bottom: 15px;"><img  height="80px" src="{% static 'images/gmrwc_logo.png' %}" alt="" style=" left: 0; right: 0; position: relative;">
+                    </th>
+                    <th width="65%" align="left" style=" background-color:  #a6d1fb; color: #1c0b0b; padding: 15px; margin-bottom: 15px;">Government Republic of Bangladesh<p style="font-size: 25px;"><b>Govt. Mujibur Rahman Women's college, Bogura.</p></th>
+          
+                    <th width="25%" align="right" style=" background-color:  #a6d1fb; color: #582a2a; padding: 15px; margin-bottom: 15px;"><p style="font-size: 20px;"><b>HSC Result </b></p> Student Copy</th>
+          
+                </thead>
+                <tbody>
+          
+                </tbody>
+                </table>
+                
+                 
+              <fieldset>
+                                      
+                  <table width="100%" border="0" align="center">
+                    
+                    <tbody>
+                      <tr >
+                          <td rowspan="7" colspan="1"  style="padding: 10px;" valign="middle">
+                              {% if student.image %}
+                              <img width="200px" height="200px" src="{{student.image.url}}" alt="" >
+                              {% else %}
+                              <img width="200px" height="200px" src="{% static 'images/gmrwc_logo.png' %}" alt="" >
+                              {% endif %}
+                          </td>
+                          
+                      </tr>
+                      
+                      <tr>
+                          <td width="250px" colspan="2" align="left" valign="middle"><b></b>&nbsp;Roll:</b></td>
+                          <td width="550px" colspan="3" align="left" valign="middle" class="black12">{{student.name}}</td>
+                          
+                      </tr>
+                      <tr>
+                          <td colspan="2" align="left" valign="middle">&nbsp;Name:</td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.guardian_info.father_name_en}}</td>
+                          
+                      </tr>
+                      <tr>
+                          <td colspan="2" align="left" valign="middle">&nbsp;Session:</td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.guardian_info.mother_name_en}}</td>
+                          
+                      </tr>
+                      <tr>
+                          <td colspan="2" align="left" valign="middle">&nbsp;Group:</td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.phone}}</td>
+                          
+                      </tr>
+                      
+                      <tr>
+                          <td colspan="2" align="left" valign="middle">&nbsp;Grade: </td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.birth_registration}}</td>
+                          
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="left" valign="middle">&nbsp;CGPA: </td>
+                        <td colspan="3" align="left" valign="middle" class="black12">{{student.birth_registration}}</td>
+                        
+                    </tr>
+                   
+          
+                  </tbody></table>
+                </fieldset>
+                
+                
+                
+          
+                                      
+                
+                <fieldset>
+                                      
+                  <table width="100%" border="0" align="center">
+                    <thead>
+                          <th colspan="4" align="left"><b>Subject Wise Marks Obtained<b></th>
+            
+                    </thead>
+                    <thead>
+                        <td width="20%"  align="left" valign="middle"> Subject Name </td>
+                        <td width="20%" align="left" valign="middle"> Subject Code </td>
+                        <td width="20%"  align="left" valign="middle"> MCQ Marks </td>
+                        <td width="20%" align="left" valign="middle"> CQ Marks </td>
+                        <td width="20%" align="left" valign="middle"> Total Marks </td>
+
+                  
+                  </thead>
+                    <tbody>
+                      
+                      <tr>
+                          {% for rslt in result %}
+          
+          
+                          <td width="20%"  align="left" valign="middle"> {{rslt.subject.name_en}} </td>
+                          <td width="20%" align="left" valign="middle"> {{rslt.subject.code}} </td>
+                          <td width="20%"  align="left" valign="middle"> {{rslt.MCQ}} </td>
+                          <td width="20%" align="left" valign="middle"> {{rslt.CQ}} </td>
+                          <td width="20%" align="left" valign="middle"> {{rslt.subject.code}} </td>
+
+          
+                          {% endfor %}
+                      </tr>
+                      
+                      
+                      <tr>
+          
+          
+                          <td  align="left" valign="middle"> {{subject_choice.fourth_subject.name_en}}   (4<sup>th</sup>&nbsp;Subject)</td>
+                          <td  align="left" valign="middle"> {{subject_choice.fourth_subject.code}} </td>
+          
+                      </tr>
+                      
+                      
+                      
+                      
+                  </tbody>
+              </table>
+                </fieldset>
+                  <table width="100%" border="0" style="margin-top: 20%;" valign="bottom">
+                    
+                      <tbody>
+                        
+                        <tr>
+                            <td  align="left" valign="middle"> student Signature</td>
+                            <td  align="left" valign="middle" class="black12">Guardian Signature</td>
+                            <td  align="left" valign="middle">Office Signature</td>
+                            <td  align="left" valign="middle" class="black12"> Principal Signature</td>
+                            
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>  
+                      
+          
+              <div class="row"  >
+                  <div class="col" >
+                      <div class="top-left">
+                          
+              </div>
+              
+          </div>
+          <div style="position: relative;"></div>
+          <button id="print" class="btn btn-success"  onclick="goToPrint()"  >Download or Print PDF</button>
+          
+          </div>
+          
+          </div>
+          
+          
+              <script>
+                  function goTuoPrint(){
+                      window.print();
+                   /*   var divToPrint = document.getElementById('column');
+              var htmlToPrint = '' +
+                  '<style type="text/css">' +
+                      '.column {'+
+                  'background:url({% static "images/gmrwc_logo.png" %}) no-repeat;' +
+                      '}'+
+                  'table th, table td {' +
+                  'border:1px solid #000;' +
+                  'padding:0.5em;' +
+                  '}' +
+                  '@media print{'+
+            '.graph-image{display:inline;}'+
+          '}'+
+                  '</style>';
+              htmlToPrint += divToPrint.outerHTML;
+              newWin = window.open("");
+              newWin.document.write(htmlToPrint);
+              newWin.print();
+              newWin.close();
+                     // document.getElementById("print").style.display="none";
+                     // window.print();*/
+                  }
+          
+                function goToPrint() {
+                  var disp_setting="toolbar=yes,location=no,";
+                disp_setting+="directories=yes,menubar=yes,";
+                disp_setting+="scrollbars=yes,width=650, height=600, left=100, top=25";
+                   var content_vlue = document.getElementById('column').innerHTML;
+                   var docprint=window.open();
+                   docprint.document.open();
+                   docprint.document.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"');
+                   docprint.document.write('"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">');
+                   docprint.document.write('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">');
+                   docprint.document.write('<head><title>HSC-{{student.session}}-{{student.group}}-{{student.class_roll}} </title>');
+                   docprint.document.write('<style type="text/css">body{ margin:0px;');
+                   docprint.document.write('font-family:verdana,Arial;color:#000;');
+                   docprint.document.write('font-family:Verdana, Geneva, sans-serif; font-size:16px;}');
+                   docprint.document.write('a{color:#000;text-decoration:none;} ');
+                   docprint.document.write('.graph-image img{display:inline;position:fixed;align-items: center;}');
+                   docprint.document.write('.table_ssc{border:2px solid #eeeff0; background-color: #eeeff0;padding:0.1em;}');
+          
+                   docprint.document.write('table th, table td {border:2px solid #eeeff0; background-color: #eeeff0;padding:0.1em;}</style>');
+                   docprint.document.write('</head><body onLoad="self.print()"><center>');
+                   docprint.document.write(content_vlue);
+                   docprint.document.write('</center></body></html>');
+                   docprint.document.close();
+                }
+          
+              </script>
+              <div class="graph-image graph-7">
+    </div>
+      <img id="graph-image" height="500px" src="{% static 'images/gmrwc_logo.png' %}" alt="" >
+</td>
+</tr>
+</table>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        window.onload = (event) => {
+
+        var numbers = {
+            0: '০',
+            1: '১',
+            2: '২',
+            3: '৩',
+            4: '৪',
+            5: '৫',
+            6: '৬',
+            7: '৭',
+            8: '৮',
+            9: '৯'
+        };
+        var output = '';
+        function replaceNumbers(input) {
+            var output = [];
+            for (var i = 0; i < input.length; ++i) {
+              if (numbers.hasOwnProperty(input[i])) {
+                output.push(numbers[input[i]]);
+              } else {
+                output.push(input[i]);
+              }
+            }
+            return output.join('');
+          }
+        input =document.getElementById("serial").textContent.toString();
+        document.getElementById('serial').textContent = replaceNumbers(input);
+        input =document.getElementById("para1").textContent.toString();
+        document.getElementById('para1').textContent = replaceNumbers(input);
+        input =document.getElementById("para2").textContent.toString();
+        document.getElementById('para2').textContent = replaceNumbers(input);
+        input =document.getElementById("para3").textContent.toString();
+        document.getElementById('para3').textContent = replaceNumbers(input);
+        input =document.getElementById("para4").textContent.toString();
+        document.getElementById('para4').textContent = replaceNumbers(input);
+        input =document.getElementById("para5").textContent.toString();
+        document.getElementById('para5').textContent = replaceNumbers(input);
+        input =document.getElementById("date").textContent.toString();
+        document.getElementById('date').textContent = replaceNumbers(input);
+        
+        }
+
+        function goToPrint(){
+            document.getElementById("submit-btn").style.display="none";
+            document.getElementById("google_translate_element").style.display="none";
+
+            
+            window.print();
+            document.getElementById("submit-btn").style.display="block";
+
+        }
+    </script>
+    
+</body>
+</html>
+
+
+
+
+
+

@@ -29,6 +29,6 @@ class SubjectAdmin(admin.ModelAdmin):
 
 @admin.register(Marks)
 class MarksAdmin(ImportExportMixin, admin.ModelAdmin):
-    list_display=[  'id','roll','subject_name','MCQ','CQ','grade','exam']
+    list_display=[  'id','roll','subject_name','MCQ','CQ','total','grade','cgpa','exam']
     search_fields=['roll']
     list_display_links = ['id','roll']
