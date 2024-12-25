@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     
     path('', views.searchResult, name='search_result'),
+    path('create_result', views.createResult, name='create_result'),
+
 
 
 

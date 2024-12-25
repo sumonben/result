@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student,Subject,Marks,Group,Exam
+from .models import Student,Subject,Marks,Group,Exam,Result
 from import_export.admin import ExportActionMixin,ImportExportMixin
 from .models import Student,StudentAdmission,StudentCategory,Class,Session,Group,Division,District,Upazilla,Union,GuardianInfo,Transaction,Adress,SubjectChoice,SscEquvalent
 from import_export.admin import ExportActionMixin,ImportExportMixin
@@ -21,7 +21,7 @@ class StudentResource(ModelResource):
 
 @admin.register(Student)
 class StudentAdmin(ImportExportMixin,admin.ModelAdmin):
-    search_fields=['email','phone']
+    search_fields=['email','phone','class_roll']
     list_display=[ 'class_roll','name','email','phone','student_category','department','session','user_link']
     list_display_links = ['name','email']
     list_filter=['department','student_category','session','group','class_year','is_active']
@@ -108,8 +108,17 @@ class SubjectAdmin(ImportExportMixin,admin.ModelAdmin):
 
 @admin.register(Marks)
 class MarksAdmin(ImportExportMixin, admin.ModelAdmin):
-    list_display=[  'id','roll','subject_name','MCQ','CQ','total','grade','cgpa','exam']
-    search_fields=['roll']
-    list_display_links = ['id','roll']
+    list_display=[  'id','class_roll','name','subject_name','MCQ','CQ','total','grade','cgpa','exam']
+    search_fields=['class_roll']
+    list_display_links = ['id','class_roll']
+    list_filter=[  'grade','cgpa','exam','subject']
     def get_import_data_kwargs(self, **kwargs):
         return super().get_import_data_kwargs(**kwargs)
+@admin.register(Result)
+class ResultAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display=[  'id','class_roll','name','group','section','exam','total','cgpa','grade']
+    search_fields=['class_roll']
+    list_display_links = ['id','class_roll']
+    list_filter=[  'group','cgpa','exam','grade','section']
+
+   

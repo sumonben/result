@@ -68,68 +68,6 @@ button#print:hover::after, button#next-btn:hover::after, button#submit-btn:hover
   width:1000px;
   height:1100;
 }
-.top-right {
-  width: 10%;
-position: absolute;
-top: 60%;
-left: 65%;
-}
-.top-middle {
-  width: 50%;
-  position: absolute;
-  top: 30%;
-  margin-left: 25%;
-  margin-right: 25%;
-  
-  }
-
-.bottom-right {
-  width: 100%;
-  position: absolute;
-  top: 80%;
-  text-align:right;
-  margin-left:25%;
- 
-}
-.top-left {
-  width: 50%;
-  position: absolute;
-  top: 80%;
-  margin-left: 25%;
-  margin-right: 25%;
- 
-}
-#x {
-color: red !important;
-text-align:center;
-margin-left: 25%;
-margin-right: 25%;
-}
-#heading {
-  color: #000080 !important;;
-}
-#graph-image{
-opacity: 0.1; 
-left: 0; 
-right: 0; 
-position: absolute;
- margin-left: 30%; 
- margin-right: 11%; 
- margin-top: -40%;
-}
-
-#google_translate_element{
-diplay:none;
-}
-table, th, td {
-border: none;
-
-
-}
-u {    
-border-bottom: 1px dotted #000;
-text-decoration: none;
-}
 
 
 @media print and (min-width: 480px) {
@@ -146,6 +84,26 @@ text-decoration: none;
     font-weight: normal;
     font-style: normal;
     }
+      
+    
+    table{
+      width:100%;
+    }
+      table th, table td {
+        
+            border:1px solid #b9b1b1;
+            background-color: #999999;
+            padding:0.5em;
+            -webkit-print-color-adjust: exact; 
+    
+            }
+
+            #submit-btn {
+              display: none !important;;
+            }
+          }
+    
+    
 body{
     font-family: "kalpurush";
              
@@ -157,107 +115,63 @@ body{
   width:900;
   height:1000;
 }
-.top-right {
-    width: 50%;
-position: absolute;
-top: 26%;
-left: 76%;
-}
-.top-middle {
-width: 75%;
-position: absolute;
-top:7%;
-margin-left: 12%;
-margin-right: 12%;
 
-}
-
-.bottom-right {
-    width: 100%;
-    position: absolute;
-    top: 80%;
-    text-align:right;
-  }
-.top-left {
-    width: 75%;
-    position: absolute;
-    top: 34%;
-    margin-left: 12%;
-    margin-right: 12%;
-  }
-#x {
-  color: red !important;
-  text-align:center;
-  margin-left: 15%;
-  margin-right:15%;
-}
 #heading {
     color: #000080 !important;;
   }
-#submit-btn {
-  display: none !important;;
-}
+
+
 #graph-image{
   opacity: 0.1; 
   left: 0; 
   right: 0; 
   position: absolute; 
-  margin-left: 22%; 
-  margin-right: 11%; 
-  margin-top: -70%;
+  margin-left: 30%; 
+  margin-right: 25%; 
+  margin-top: -60%;
 }
 
-#google_translate_element{
-  diplay:none;
-}
-}
-@media only screen and(max-width:978px){
-    #first_table{
-        width:100%;
-    }
-  .top-right {
-    width: 10%;
-  position: absolute;
-  top: 60%;
-  left: 65%;
+@media (max-width:786px){
+  #graph-image{
+    opacity: 0.1; 
+    left: 0; 
+    right: 0; 
+    position: absolute; 
+    margin-left: 20%; 
+    margin-right: 25%; 
+    margin-top: -90%;
   }
-  .top-middle {
-    width: 100%;
-    position: absolute;
-    top: -700px;
-    margin-left: 25%;
-    margin-right: 25%;
-    
-    }
   
-  .bottom-right {
-    width: 100%;
-    position: absolute;
-    top: 80%;
-    text-align:right;
-    margin-left:25%;
-   
-  }
-  .top-left {
-    width: 50%;
-    position: absolute;
-    top: 0%;
-    margin-left: 25%;
-    margin-right: 25%;
-   
-  }
-  #x {
-  color: red !important;
-  text-align:center;
-  margin-left: 25%;
-  margin-right: 25%;
-  }
 }
 
+
+{% if grade in 'F' or grade in 'Absent' %}
+
+table th, table td {
+            border:1px solid #b9b1b1;
+            
+            background-color:rgb(241, 212, 212);
+            padding:0.5em;
+            -webkit-print-color-adjust: exact; 
+    
+            }
+            {%else%}
+            table th, table td {
+              border:1px solid #b9b1b1;
+              
+              background-color:rgb(207, 241, 218);
+              padding:0.5em;
+              -webkit-print-color-adjust: exact; 
+      
+              }
+  
+
+{% endif %}
+    
 </style>
 </head>
 <body >
-<table  id="first_table" border="0" align="center">
+<table  id="first_table" border="1" align="center" style="border:5px">
     <tr>
         <td>
 <div class="container home-page" id="column"  style="height: 1000px;">
@@ -265,13 +179,13 @@ margin-right: 12%;
 
     <div id="container_id" class="container">
 
-              <table width="100%" border="0" align="center" style="margin-bottom: 10px;" >
+              <table width="100%" border="2" align="center" >
                   <thead style=" background-color: #a6d1fb; color: #e03838;">
                     <th width="10%" style=" background-color:  #a6d1fb; color: #0f0f0f; padding: 15px; margin-bottom: 15px;"><img  height="80px" src="{% static 'images/gmrwc_logo.png' %}" alt="" style=" left: 0; right: 0; position: relative;">
                     </th>
-                    <th width="65%" align="left" style=" background-color:  #a6d1fb; color: #1c0b0b; padding: 15px; margin-bottom: 15px;">Government Republic of Bangladesh<p style="font-size: 25px;"><b>Govt. Mujibur Rahman Women's college, Bogura.</p></th>
+                    <th width="65%" align="left" style=" background-color:  #a6d1fb; color: #1c0b0b; padding: 15px; margin-bottom: 15px;line-height: 1;">Government of thead Peoples Republic of Bangladesh<p style="font-size: 25px;line-height: 1.2;"><b>Govt. Mujibur Rahman Women's college, Bogura.</p></th>
           
-                    <th width="25%" align="right" style=" background-color:  #a6d1fb; color: #582a2a; padding: 15px; margin-bottom: 15px;"><p style="font-size: 20px;"><b>HSC Result </b></p> Student Copy</th>
+                    <th width="25%" align="right" style=" background-color:  #a6d1fb; color: #582a2a; padding: 15px; margin-bottom: 15px;"><p style="font-size: 20px;line-height: 1.2;"><b>{{exam}} </b></p> Student Copy</th>
           
                 </thead>
                 <tbody>
@@ -280,102 +194,115 @@ margin-right: 12%;
                 </table>
                 
                  
-              <fieldset>
                                       
-                  <table width="100%" border="0" align="center">
+                  <table width="100%" border="2" align="center" style="border:5px">
                     
                     <tbody>
-                      <tr >
-                          <td rowspan="7" colspan="1"  style="padding: 10px;" valign="middle">
-                              {% if student.image %}
-                              <img width="200px" height="200px" src="{{student.image.url}}" alt="" >
-                              {% else %}
-                              <img width="200px" height="200px" src="{% static 'images/gmrwc_logo.png' %}" alt="" >
-                              {% endif %}
-                          </td>
-                          
-                      </tr>
-                      
-                      <tr>
+                        <tr>
                           <td width="250px" colspan="2" align="left" valign="middle"><b></b>&nbsp;Roll:</b></td>
-                          <td width="550px" colspan="3" align="left" valign="middle" class="black12">{{student.name}}</td>
+                          <td width="550px" colspan="3" align="left" valign="middle" class="black12">{{student.class_roll}}</td>
                           
                       </tr>
                       <tr>
                           <td colspan="2" align="left" valign="middle">&nbsp;Name:</td>
-                          <td colspan="3" align="left" valign="middle" class="black12">{{student.guardian_info.father_name_en}}</td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.name}}</td>
                           
                       </tr>
                       <tr>
                           <td colspan="2" align="left" valign="middle">&nbsp;Session:</td>
-                          <td colspan="3" align="left" valign="middle" class="black12">{{student.guardian_info.mother_name_en}}</td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.session}}</td>
                           
                       </tr>
                       <tr>
                           <td colspan="2" align="left" valign="middle">&nbsp;Group:</td>
-                          <td colspan="3" align="left" valign="middle" class="black12">{{student.phone}}</td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.group}}</td>
                           
                       </tr>
                       
                       <tr>
-                          <td colspan="2" align="left" valign="middle">&nbsp;Grade: </td>
-                          <td colspan="3" align="left" valign="middle" class="black12">{{student.birth_registration}}</td>
+                          <td colspan="2" align="left" valign="middle">&nbsp;Section </td>
+                          <td colspan="3" align="left" valign="middle" class="black12">{{student.section}}</td>
                           
                       </tr>
                       <tr>
                         <td colspan="2" align="left" valign="middle">&nbsp;CGPA: </td>
-                        <td colspan="3" align="left" valign="middle" class="black12">{{student.birth_registration}}</td>
+                        <td colspan="3" align="left" valign="middle" class="black12">{{cgpa}}</td>
                         
                     </tr>
-                   
+                    <tr>
+                      <td colspan="2" align="left" valign="middle">&nbsp;Grade: </td>
+                      <td colspan="3" align="left" valign="middle" class="black12">{{grade}}</td>
+                      
+                  </tr>
+                 
           
                   </tbody></table>
-                </fieldset>
                 
                 
                 
           
                                       
                 
-                <fieldset>
                                       
-                  <table width="100%" border="0" align="center">
+                  <table width="100%" border="2" align="center">
                     <thead>
-                          <th colspan="4" align="left"><b>Subject Wise Marks Obtained<b></th>
+                          <th colspan="7" align="left"><b>Subject Wise Marks Obtained<b></th>
             
                     </thead>
                     <thead>
-                        <td width="20%"  align="left" valign="middle"> Subject Name </td>
-                        <td width="20%" align="left" valign="middle"> Subject Code </td>
-                        <td width="20%"  align="left" valign="middle"> MCQ Marks </td>
-                        <td width="20%" align="left" valign="middle"> CQ Marks </td>
-                        <td width="20%" align="left" valign="middle"> Total Marks </td>
+                        <td width="30%"  align="left" valign="middle"> Subject Name </td>
+                        <td width="15%" align="left" valign="middle"> Subject Code </td>
+                        <td width="10%"  align="left" valign="middle"> MCQ Marks </td>
+                        <td width="10%" align="left" valign="middle"> CQ Marks </td>
+                        <td width="10%" align="left" valign="middle"> Total Marks </td>
+                        <td width="10%" align="left" valign="middle"> Grade </td>
+                        <td width="10%" align="left" valign="middle"> GPA </td>
 
                   
                   </thead>
                     <tbody>
-                      
-                      <tr>
-                          {% for rslt in result %}
+                      {% for rslt in result %}
+                      {% if student.fourth_subject.code not in rslt.subject.code %}
+                        <tr>
           
           
-                          <td width="20%"  align="left" valign="middle"> {{rslt.subject.name_en}} </td>
-                          <td width="20%" align="left" valign="middle"> {{rslt.subject.code}} </td>
-                          <td width="20%"  align="left" valign="middle"> {{rslt.MCQ}} </td>
-                          <td width="20%" align="left" valign="middle"> {{rslt.CQ}} </td>
-                          <td width="20%" align="left" valign="middle"> {{rslt.subject.code}} </td>
+                          <td width="30%"  align="left" valign="middle"> {{rslt.subject.name_en}} </td>
+                          <td width="15%" align="left" valign="middle"> {{rslt.subject.code}} </td>
+                          <td width="10%"  align="left" valign="middle"> {{rslt.MCQ}} </td>
+                          <td width="10%" align="left" valign="middle"> {{rslt.CQ}} </td>
+                          <td width="10%" align="left" valign="middle"> {{rslt.total}} </td>
+                          <td width="10%" align="left" valign="middle"> {{rslt.grade}} </td>
+                          <td width="10%" align="left" valign="middle"> {{rslt.cgpa}} </td>
+
 
           
-                          {% endfor %}
                       </tr>
-                      
+                      {% endif %}
+                      {% endfor %}
+
                       
                       <tr>
           
           
-                          <td  align="left" valign="middle"> {{subject_choice.fourth_subject.name_en}}   (4<sup>th</sup>&nbsp;Subject)</td>
-                          <td  align="left" valign="middle"> {{subject_choice.fourth_subject.code}} </td>
-          
+                        {% for rslt in result %}
+                        {% if student.fourth_subject.code in rslt.subject.code %}
+                          <tr>
+            
+            
+                            <td width="15%"  align="left" valign="middle"> {{rslt.subject.name_en}}(4rth Subject) </td>
+                            <td width="15%" align="left" valign="middle"> {{rslt.subject.code}} </td>
+                            <td width="15%"  align="left" valign="middle"> {{rslt.MCQ}} </td>
+                            <td width="15%" align="left" valign="middle"> {{rslt.CQ}} </td>
+                            <td width="15%" align="left" valign="middle"> {{rslt.total}} </td>
+                            <td width="10%" align="left" valign="middle"> {{rslt.grade}} </td>
+                            <td width="10%" align="left" valign="middle"> {{rslt.cgpa}} </td>
+  
+  
+            
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+  
                       </tr>
                       
                       
@@ -383,16 +310,15 @@ margin-right: 12%;
                       
                   </tbody>
               </table>
-                </fieldset>
                   <table width="100%" border="0" style="margin-top: 20%;" valign="bottom">
                     
                       <tbody>
                         
                         <tr>
-                            <td  align="left" valign="middle"> student Signature</td>
+                            <!--<td  align="left" valign="middle"> student Signature</td>
                             <td  align="left" valign="middle" class="black12">Guardian Signature</td>
                             <td  align="left" valign="middle">Office Signature</td>
-                            <td  align="left" valign="middle" class="black12"> Principal Signature</td>
+                            <td  align="left" valign="middle" class="black12"> Principal Signature</td>-->
                             
                         </tr>
                         
@@ -401,17 +327,7 @@ margin-right: 12%;
                 </table>  
                       
           
-              <div class="row"  >
-                  <div class="col" >
-                      <div class="top-left">
-                          
-              </div>
-              
-          </div>
-          <div style="position: relative;"></div>
-          <button id="print" class="btn btn-success"  onclick="goToPrint()"  >Download or Print PDF</button>
-          
-          </div>
+             
           
           </div>
           
