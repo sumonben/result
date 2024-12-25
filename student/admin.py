@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student,Subject,Marks,Group,Exam,Result
+from .models import Student,Subject,Marks,Group,Exam,Result,Choice
 from import_export.admin import ExportActionMixin,ImportExportMixin
 from .models import Student,StudentAdmission,StudentCategory,Class,Session,Group,Division,District,Upazilla,Union,GuardianInfo,Transaction,Adress,SubjectChoice,SscEquvalent
 from import_export.admin import ExportActionMixin,ImportExportMixin
@@ -120,5 +120,12 @@ class ResultAdmin(ImportExportMixin, admin.ModelAdmin):
     search_fields=['class_roll']
     list_display_links = ['id','class_roll']
     list_filter=[  'group','cgpa','exam','grade','section']
+
+@admin.register(Choice)
+class ChoiceAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display=[  'id','class_roll','subject1','subject2','subject3','subject4','subject5','subject6','fourth_subject']
+    search_fields=['class_roll']
+    list_display_links = ['id','class_roll']
+    list_filter=[ 'subject1','subject2','subject3','subject4','subject5','subject6','fourth_subject']
 
    

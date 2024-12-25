@@ -482,7 +482,6 @@ class Result(models.Model):
      
     class Meta:
         ordering = ['position']
-        unique_together = ('class_roll', 'exam',)
     def __str__(self):
         if self.class_roll is not None:
             return self.class_roll+': '+self.name
@@ -500,6 +499,24 @@ class FinalResult(models.Model):
      
     class Meta:
         ordering = ['position']
+    def __str__(self):
+        if self.class_roll is not None:
+            return self.class_roll+': '+self.name
+        return self.class_roll
+
+class Choice(models.Model):
+    class_roll=models.CharField(max_length=255)
+    name=models.CharField(max_length=255,blank=True, null=True)
+    subject1=models.ForeignKey(Subject,related_name='subject1',blank=True,null=True,on_delete=models.SET_NULL)
+    subject2=models.ForeignKey(Subject,related_name='subject2',blank=True,null=True,on_delete=models.SET_NULL)
+    subject3=models.ForeignKey(Subject,related_name='subject3',blank=True,null=True,on_delete=models.SET_NULL)
+    subject4=models.ForeignKey(Subject,related_name='subject4',blank=True,null=True,on_delete=models.SET_NULL)
+    subject5=models.ForeignKey(Subject,related_name='subject5',blank=True,null=True,on_delete=models.SET_NULL)
+    subject6=models.ForeignKey(Subject,related_name='subject6',blank=True,null=True,on_delete=models.SET_NULL)
+
+    fourth_subject=models.ForeignKey(Subject,blank=True,null=True,on_delete=models.SET_NULL)
+    class Meta:
+        ordering = ['class_roll']
     def __str__(self):
         if self.class_roll is not None:
             return self.class_roll+': '+self.name
