@@ -5,12 +5,16 @@
 
     <fieldset style="margin-bottom: 2%;">
         <table width="50%" border="1" cellspacing="0" cellpadding="2" align="center">
-          <thead style="height: 25px; background-color: #245b80; color: #fff;padding: 15px"><th colspan="5" style="height: 25px; background-color: #245b80; color: #fff;padding: 15px;">Insert your roll and exam </th></thead>
+            {% if notfound %}
+                <thead><th colspan="5" style="height: 25px; background-color:rgb(148, 30, 9); color: #fff;padding: 15px;">Result Not found!<br>re-Enter right information or Contact exam control room </th></thead>
+                 
+                {% endif %}
+          <thead style="height: 25px; background-color: #245b80; color: #fff;padding: 15px"><th colspan="5" style="height: 25px; background-color: #245b80; color: #fff;padding: 15px;">Insert your roll and exam to find result </th></thead>
           <tbody>
-            <form method="post" action="{% url 'search_result' %}" id="form1" name="form1">
+            <form method="post" action="{% url 'search_result' %}" id="form1" name="form1" target="_blank">
                 {% csrf_token %}
             <tr>
-
+                
                 <td class="r-align-right r-ori-vert							col-md-4						" data-single="" data-cellid="grid_c1" data-pageid="1">
                
 

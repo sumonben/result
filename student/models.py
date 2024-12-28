@@ -106,7 +106,7 @@ class Group(models.Model):
   
 class Subject(models.Model):
     serial=models.IntegerField(default=10)
-    name=models.CharField(max_length=100,unique=True)
+    name=models.CharField(max_length=100,null=True,blank=True)
     name_en=models.CharField(max_length=100,null=True,blank=True)
     code=models.CharField(max_length=20, null=True,blank=True)
     group=models.ManyToManyField(Group, blank=True,null=True)
@@ -358,6 +358,7 @@ class Marks(models.Model):
      
     class Meta:
         ordering = ['serial']
+        unique_together=('class_roll','subject','exam')
     def __str__(self):
         if self.subject is not None:
             return self.class_roll+': '+self.subject.name_en
@@ -372,7 +373,6 @@ class Marks(models.Model):
         if self.subject:
             group=Group.objects.filter(id=3).first()
             subj=Subject.objects.filter(name_en=self.subject.name_en).first()
-            print(self.exam,self.exam.id)
 
             if group in subj.group.all():
                 if self.CQ:
@@ -445,20 +445,20 @@ class Marks(models.Model):
                     self.cgpa=0
                     self.grade="F"
 
-                elif total>33 and total<40:
+                elif total>=33 and total<40:
                     self.cgpa=1
                     self.grade="D"
 
-                elif total>=40 and total<=49:
+                elif total>=40 and total<50:
                     self.cgpa=2
                     self.grade="C"
-                elif total>=50 and total<=59:
+                elif total>=50 and total<60:
                     self.cgpa=3
                     self.grade="B"
-                elif total>=60 and total<=69:
+                elif total>=60 and total<70:
                     self.cgpa=3.5
                     self.grade="A-"
-                elif total>=70 and total<=79:
+                elif total>=70 and total<80:
                     self.cgpa=4
                     self.grade="A"
                 else:
@@ -481,11 +481,12 @@ class Result(models.Model):
     cgpa=models.CharField(max_length=255,blank=True,null=True)
      
     class Meta:
-        ordering = ['position']
+        ordering = ['group','position']
     def __str__(self):
         if self.class_roll is not None:
             return self.class_roll+': '+self.name
         return self.class_roll
+    
 class FinalResult(models.Model):
     class_roll=models.CharField(max_length=255)
     name=models.CharField(max_length=255,blank=True, null=True)

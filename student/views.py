@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Marks,Student,Exam,Result
+from .models import Marks,Student,Exam,Result,Choice,Group
 from .forms import SeachResultForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def searchResult(request):
@@ -11,47 +12,67 @@ def searchResult(request):
     
     if request.method=='POST':
         totalgpa=0
-        result=Marks.objects.filter(class_roll=request.POST.get('roll').strip())
+        totalgpa1=0
+
+        result=Marks.objects.filter(class_roll=request.POST.get('roll').strip()).order_by('subject')
         student=Student.objects.filter(class_roll=request.POST.get('roll').strip()).first()
+        subject_choice=Choice.objects.filter(class_roll=request.POST.get('roll').strip()).first()
         exam=Exam.objects.filter(id=request.POST.get('exam')).first()
+        if subject_choice and student and result and exam:
+            choice_list=[subject_choice.subject1,subject_choice.subject2,subject_choice.subject3,subject_choice.subject4,subject_choice.subject5,subject_choice.subject6,subject_choice.fourth_subject]
+        else:
+            context['notfound']="Result not found!!re=Enter Right Information or Contact exam control room"
+            form=SeachResultForm()
+            context['form']=form
+            return render(request, 'result/search_result.html', context=context)
         context['result']=result
         context['student']=student
         context['exam']=exam
+        context['choice_list']=choice_list
+
         
         for reslt in result:
-            if reslt.grade=="Absent":
-                grade="Absent"
-                cgpa=None
-                context['grade']=grade
-                context['cgpa']=cgpa
-                flag1=1
-                return render(request, 'result/show_result.html', context=context)
+            print(reslt.subject,reslt.cgpa,reslt.grade,reslt.total)
+            if reslt.subject  in choice_list:
+                if reslt.grade=="Absent":
+                    grade="Absent"
+                    cgpa=None
+                    context['grade']=grade
+                    context['cgpa']=cgpa
+                    flag1=1
+                    return render(request, 'result/show_result.html', context=context)
 
-            elif reslt.grade=="F":
-                grade="F"
-                cgpa=0
-                context['grade']=grade
-                context['cgpa']=cgpa
-                flag2=1
-                
-            else:
-                #print(student.fourth_subject,reslt.subject)
-                if student:
-                    if reslt.subject == student.fourth_subject:
-                        cg=float(reslt.cgpa)
-                        if cg>2:
-                            gpa=cg-2
-                            totalgpa=totalgpa+gpa
+                elif reslt.grade=="F" and reslt.subject !=subject_choice.fourth_subject:
+                    grade="F"
+                    cgpa=0
+                    context['grade']=grade
+                    context['cgpa']=cgpa
+                    flag2=1
+                    
+                else:
+                    #print(student.fourth_subject,reslt.subject)
+                    if student:
+                        if reslt.subject == student.fourth_subject:
+                            cg=float(reslt.cgpa)
+                            if cg>2:
+                                gpa=cg-2
+                                totalgpa=totalgpa+gpa
 
-                    else:
-                        totalgpa=totalgpa+float(reslt.cgpa)
-        if flag2==1:
+                        else:
+                            totalgpa=totalgpa+float(reslt.cgpa)
+                            totalgpa1=totalgpa1+float(reslt.cgpa)
+                            print(totalgpa1)
+
+        if flag2==1 or flag1==1:
             return render(request, 'result/show_result.html', context=context)
         
         else:
             #print(grade)
             cgpa=totalgpa/6
             context['cgpa']=round(cgpa,2)
+            cgpa_witout_4th=totalgpa1/6
+            context['cgpa_witout_4th']=round(cgpa_witout_4th,2)
+
             if cgpa<1:
                 grade="F"
             elif cgpa>=1 and cgpa<2:
@@ -78,48 +99,55 @@ def searchResult(request):
     context['form']=form
     return render(request, 'result/search_result.html', context=context)
 
+@login_required
 def createResult(request):
         rolls=list(Marks.objects.filter(exam=1).values('class_roll').order_by('class_roll').distinct())
         exam=Exam.objects.filter(id=1).first()
         count=0
+        choice_list=[]
         for roll in rolls:
-            print(roll['class_roll'])
             result=Marks.objects.filter(class_roll=roll['class_roll'])
             student=Student.objects.filter(class_roll=roll['class_roll']).first()
+            subject_choice=Choice.objects.filter(class_roll=roll['class_roll'].strip()).first()
+            if subject_choice:
+                choice_list=[subject_choice.subject1,subject_choice.subject2,subject_choice.subject3,subject_choice.subject4,subject_choice.subject5,subject_choice.subject6,subject_choice.fourth_subject]
+                print(choice_list)
             totalgpa=0
+            totalgpa1=0
             total=0
             flag1=0
             flag2=0
             for reslt in result:
-                if reslt.grade=="Absent":
-                    grade="Absent"
-                    cgpa=None
-                    flag1=1
+                if reslt.subject  in choice_list:
+                    if reslt.grade=="Absent":
+                        grade="Absent"
+                        cgpa=None
+                        flag1=1
 
-                elif reslt.grade=="F":
-                    grade="F"
-                    cgpa=0
-                    flag2=1
-                    total=total+reslt.total
+                    elif reslt.grade=="F" and reslt.subject !=subject_choice.fourth_subject :
+                        grade="F"
+                        cgpa=0
+                        flag2=1
+                        total=total+reslt.total
 
-                    
-                else:
-                    #print(student.fourth_subject,reslt.subject)
-                    if student:
-                        if reslt.subject == student.fourth_subject:
-                            cg=float(reslt.cgpa)
-                            total=total+reslt.total
+                        
+                    else:
+                        #print(student.fourth_subject,reslt.subject)
+                        if student:
+                            if reslt.subject == student.fourth_subject:
+                                cg=float(reslt.cgpa)
+                                total=total+reslt.total
 
-                            if cg>2:
-                                gpa=cg-2
-                                totalgpa=totalgpa+gpa
+                                if cg>2:
+                                    gpa=cg-2
+                                    totalgpa=totalgpa+gpa
 
-                        else:
-                            total=total+reslt.total
-                            totalgpa=totalgpa+float(reslt.cgpa)
-            if flag1==1 and flag2==1 :
+                            else:
+                                total=total+reslt.total
+                                totalgpa=totalgpa+float(reslt.cgpa)
+            if flag1==1 or flag2==1 :
                 if student:
-                    result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=1,cgpa=cgpa,grade=grade)
+                    result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=total,cgpa=cgpa,grade=grade)
             else:
                 #print(grade)
                 cgpa=round(totalgpa/6,2)
@@ -151,3 +179,31 @@ def createResult(request):
 
         return HttpResponse('ok')
 
+@login_required
+def deleteResult(request):
+    for row in Result.objects.all().reverse():
+        if Result.objects.filter(class_roll=row.class_roll).count() > 1:
+            row.delete()
+    return HttpResponse("Data Deleted successfully!!")
+
+@login_required
+def CreatePosition(request):
+    group1=Group.objects.filter(id=3).first()
+    group2=Group.objects.filter(id=4).first()
+    group3=Group.objects.filter(id=5).first()
+    result1=Result.objects.filter(group=group1).order_by('-cgpa')
+    count=0
+    cgpa_prev=0
+    for rslt in result1:
+        print()
+        if cgpa_prev==rslt.cgpa:
+            rslt.position=count
+            cgpa_prev=rslt.cgpa
+            rslt.save()
+        else:
+            rslt.position=count+1
+            cgpa_prev=rslt.cgpa
+            rslt.save()
+        
+
+    return HttpResponse("Position Created successfully!!")

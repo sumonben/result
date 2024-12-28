@@ -89,13 +89,13 @@ class StudentAdmissionAdmin(ImportExportMixin,admin.ModelAdmin):
     list_display_links = ['ssc_roll','name',]
     list_filter=['board','passing_year','quota','group',]
 @admin.register(Exam)
-class ExamAdmin(admin.ModelAdmin):
+class ExamAdmin(ImportExportMixin,admin.ModelAdmin):
     list_display=[  'serial','title_en',]
     list_filter=[  'title_en',]
     list_display_links = ['serial','title_en',]
 
 @admin.register(Group)
-class GroupAdmin(admin.ModelAdmin):
+class GroupAdmin(ImportExportMixin,admin.ModelAdmin):
     list_display=[  'id','serial','title_en',]
     list_filter=[  'title_en',]
     list_display_links = ['serial','title_en',]
@@ -109,14 +109,14 @@ class SubjectAdmin(ImportExportMixin,admin.ModelAdmin):
 @admin.register(Marks)
 class MarksAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display=[  'id','class_roll','name','subject_name','MCQ','CQ','total','grade','cgpa','exam']
-    search_fields=['class_roll']
+    search_fields=['class_roll','total']
     list_display_links = ['id','class_roll']
     list_filter=[  'grade','cgpa','exam','subject']
     def get_import_data_kwargs(self, **kwargs):
         return super().get_import_data_kwargs(**kwargs)
 @admin.register(Result)
 class ResultAdmin(ImportExportMixin, admin.ModelAdmin):
-    list_display=[  'id','class_roll','name','group','section','exam','total','cgpa','grade']
+    list_display=[  'id','class_roll','position','name','group','section','exam','total','cgpa','grade']
     search_fields=['class_roll']
     list_display_links = ['id','class_roll']
     list_filter=[  'group','cgpa','exam','grade','section']
