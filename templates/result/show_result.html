@@ -259,8 +259,8 @@ goog-te-combo, .VIpgJd-ZVi9od-ORHb *, .VIpgJd-ZVi9od-SmfZ *, .VIpgJd-ZVi9od-xl07
                     <tr>
                       <td colspan="2" align="left" valign="middle">&nbsp;Grade: </td>
                       <td colspan="1" align="left" valign="middle" class="black12">{{grade}}</td>
-                      {% if grade is not 'Absent' %}
-                      <td colspan="1" align="left" valign="middle">&nbsp;Merit Position: </td>
+                      {% if grade in 'A+' or grade in 'A' or grade in 'A-' or grade in 'B' or grade in 'C' or grade in 'D' or grade in 'F'   %}
+                      <td colspan="1" align="left" valign="middle">&nbsp;Position: </td>
                       <td colspan="1" align="left" valign="middle" class="black12">{{position.position}}</td>
                       {% endif %}
                       
