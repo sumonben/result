@@ -172,7 +172,7 @@ body{
 table th, table td {
             border:1px solid #b9b1b1;
             
-            background-color:rgb(241, 212, 212);
+            background-color:rgb(238, 131, 131);
             padding:0.5em;
             -webkit-print-color-adjust: exact; 
     
@@ -242,25 +242,27 @@ goog-te-combo, .VIpgJd-ZVi9od-ORHb *, .VIpgJd-ZVi9od-SmfZ *, .VIpgJd-ZVi9od-xl07
                       </tr>
                       <tr>
                           <td colspan="2" align="left" valign="middle">&nbsp;Group:</td>
-                          <td colspan="3" align="left" valign="middle" class="black12">{{student.group}}</td>
+                          <td colspan="1" align="left" valign="middle" class="black12">{{student.group}}</td>
                           
-                      </tr>
-                      
-                      <tr>
-                          <td colspan="2" align="left" valign="middle">&nbsp;Section </td>
-                          <td colspan="3" align="left" valign="middle" class="black12">{{student.section}}</td>
+                          <td colspan="1" align="left" valign="middle">&nbsp;Section: </td>
+                          <td colspan="1" align="left" valign="middle" class="black12">{{student.section}}</td>
                           
                       </tr>
                       <tr>
-                        <td colspan="2" align="left" valign="middle">&nbsp;CGPA: </td>
+                        <td colspan="2" align="left" valign="middle">&nbsp;CGPA(With 4th subject): </td>
                         <td colspan="1" align="left" valign="middle" class="black12">{{cgpa}}</td>
                         {% if cgpa_witout_4th %}
-                        <td colspan="2" align="left" valign="middle" class="black12"> {{cgpa_witout_4th}} (without 4th Subject)</td>
+                        <td colspan="1" align="left" valign="middle" class="black12"> CGPA (Without 4th subject):</td>
+                        <td colspan="1" align="left" valign="middle" class="black12"> {{cgpa_witout_4th}}</td>
                         {% endif %}
                     </tr>
                     <tr>
                       <td colspan="2" align="left" valign="middle">&nbsp;Grade: </td>
-                      <td colspan="3" align="left" valign="middle" class="black12">{{grade}}</td>
+                      <td colspan="1" align="left" valign="middle" class="black12">{{grade}}</td>
+                      {% if grade is not 'Absent' %}
+                      <td colspan="1" align="left" valign="middle">&nbsp;Merit Position: </td>
+                      <td colspan="1" align="left" valign="middle" class="black12">{{position.position}}</td>
+                      {% endif %}
                       
                   </tr>
                  

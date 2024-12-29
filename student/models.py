@@ -481,7 +481,7 @@ class Result(models.Model):
     cgpa=models.CharField(max_length=255,blank=True,null=True)
      
     class Meta:
-        ordering = ['group','position']
+        ordering = ['-group','-position']
     def __str__(self):
         if self.class_roll is not None:
             return self.class_roll+': '+self.name
@@ -499,7 +499,7 @@ class FinalResult(models.Model):
     cgpa=models.CharField(max_length=255,blank=True,null=True)
      
     class Meta:
-        ordering = ['position']
+        ordering = ['group','position']
     def __str__(self):
         if self.class_roll is not None:
             return self.class_roll+': '+self.name
