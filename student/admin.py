@@ -116,10 +116,10 @@ class MarksAdmin(ImportExportMixin, admin.ModelAdmin):
         return super().get_import_data_kwargs(**kwargs)
 @admin.register(Result)
 class ResultAdmin(ImportExportMixin, admin.ModelAdmin):
-    list_display=[  'id','class_roll','position','name','group','section','exam','total','cgpa','grade']
+    list_display=[  'id','class_roll','position','name','group','section','exam','total','cgpa','grade','absent_at','fail_at','pass_at','present_at','absent_or_fail_at','remarks']
     search_fields=['class_roll']
     list_display_links = ['id','class_roll']
-    list_filter=[  'group','cgpa','exam','grade','section']
+    list_filter=[  'group','cgpa','exam','grade','section','remarks']
 
 @admin.register(Choice)
 class ChoiceAdmin(ImportExportMixin, admin.ModelAdmin):

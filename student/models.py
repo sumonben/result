@@ -348,6 +348,7 @@ class Marks(models.Model):
     class_roll=models.CharField(max_length=10,)
     name=models.CharField(max_length=100,blank=True, null=True)
     subject=models.ForeignKey(Subject,blank=True,null=True,on_delete=models.SET_NULL)
+    group=models.ForeignKey(Group,blank=True,null=True,on_delete=models.SET_NULL)    
     exam=models.ForeignKey(Exam,blank=True,null=True,on_delete=models.SET_NULL)
     MCQ=models.IntegerField(blank=True,null=True)
     CQ=models.IntegerField(blank=True,null=True)
@@ -479,13 +480,28 @@ class Result(models.Model):
     total=models.IntegerField(blank=True,null=True)
     grade=models.CharField(max_length=255,blank=True,null=True)
     cgpa=models.CharField(max_length=255,blank=True,null=True)
-     
+    number_of_subject=models.IntegerField(blank=True,null=True)
+    present_at=models.IntegerField(blank=True,null=True)
+    absent_at=models.IntegerField(blank=True,null=True)
+    fail_at=models.IntegerField(blank=True,null=True)
+    pass_at=models.IntegerField(blank=True,null=True)
+    absent_or_fail_at=models.IntegerField(blank=True,null=True)
+    minimum_pass=models.IntegerField(blank=True,null=True)
+    remarks=models.CharField(max_length=255,blank=True,null=True)
     class Meta:
         ordering = ['-group','-position']
     def __str__(self):
         if self.class_roll is not None:
             return self.class_roll+': '+self.name
         return self.class_roll
+    def save(self, *args, **kwargs):
+        if self.absent_at != None and self.fail_at != None:
+            self.absent_or_fail_at=self.absent_at +self.fail_at
+        else:
+            self.absent_or_fail_at=self.absent_at
+        super(Result, self).save(*args, **kwargs)
+
+
     
 class FinalResult(models.Model):
     class_roll=models.CharField(max_length=255)

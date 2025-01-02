@@ -9,7 +9,7 @@ def searchResult(request):
     context={}
     flag1=0
     flag2=0
-    
+    f=0
     if request.method=='POST':
         totalgpa=0
         totalgpa1=0
@@ -34,15 +34,17 @@ def searchResult(request):
 
         
         for reslt in result:
+            print(reslt.subject)
             print(reslt.subject,reslt.cgpa,reslt.grade,reslt.total)
             if reslt.subject  in choice_list:
+                
                 if reslt.grade=="Absent":
+                    f=f+1
                     grade="Absent"
                     cgpa=None
                     context['grade']=grade
                     context['cgpa']=cgpa
                     flag1=1
-                    return render(request, 'result/show_result.html', context=context)
 
                 elif reslt.grade=="F" and reslt.subject !=subject_choice.fourth_subject:
                     grade="F"
@@ -64,6 +66,12 @@ def searchResult(request):
                             totalgpa=totalgpa+float(reslt.cgpa)
                             totalgpa1=totalgpa1+float(reslt.cgpa)
                             print(totalgpa1)
+
+        if f==7:
+            print('Absent All')
+            grade="AbsentAll"
+            context['grade']=grade
+            return render(request, 'result/show_result.html', context=context)
 
         if flag2==1 or flag1==1:
             return render(request, 'result/show_result.html', context=context)
@@ -92,6 +100,8 @@ def searchResult(request):
             else:
                 grade="Absent"
             context['grade']=grade
+        
+
 
         
         
@@ -107,7 +117,7 @@ def createResult(request):
         exam=Exam.objects.filter(id=1).first()
         count=0
         choice_list=[]
-        for roll in rolls:
+        for roll in rolls[:500]:
             result=Marks.objects.filter(class_roll=roll['class_roll'])
             student=Student.objects.filter(class_roll=roll['class_roll']).first()
             subject_choice=Choice.objects.filter(class_roll=roll['class_roll'].strip()).first()
@@ -119,14 +129,23 @@ def createResult(request):
             total=0
             flag1=0
             flag2=0
+            absent_at=0
+            fail_at=0
+            present_at=0
+            pass_at=0
+            remarks=None
+
             for reslt in result:
                 if reslt.subject  in choice_list:
                     if reslt.grade=="Absent":
+                        absent_at=absent_at+1
                         grade="Absent"
                         cgpa=None
                         flag1=1
 
                     elif reslt.grade=="F" and reslt.subject !=subject_choice.fourth_subject :
+                        present_at=present_at+1
+                        fail_at=fail_at+1
                         grade="F"
                         cgpa=0
                         flag2=1
@@ -137,6 +156,12 @@ def createResult(request):
                         #print(student.fourth_subject,reslt.subject)
                         if student:
                             if reslt.subject == student.fourth_subject:
+                                present_at=present_at+1
+
+                                if reslt.grade=="F":
+                                    fail_at=fail_at+1
+                                else:
+                                    pass_at=pass_at+1
                                 cg=float(reslt.cgpa)
                                 total=total+reslt.total
 
@@ -145,11 +170,24 @@ def createResult(request):
                                     totalgpa=totalgpa+gpa
 
                             else:
+                                present_at=present_at+1
+                                pass_at=pass_at+1
                                 total=total+reslt.total
                                 totalgpa=totalgpa+float(reslt.cgpa)
-            if flag1==1 or flag2==1 :
+            if absent_at==7:
+                grade="AbsentAll"
+                remarks="Not Promoted"
+                result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=total,cgpa=cgpa,grade=grade,present_at=present_at,absent_at=absent_at,fail_at=fail_at,pass_at=pass_at,remarks=remarks)
+
+            elif flag1==1 or flag2==1 :
+                count_fail=absent_at+fail_at
+                # Number of subject failed to be
+                if count_fail>3:
+                    remarks="Not Promoted"
+                else:
+                    remarks="Promoted"                   
                 if student:
-                    result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=total,cgpa=cgpa,grade=grade)
+                    result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=total,cgpa=cgpa,grade=grade,present_at=present_at,absent_at=absent_at,fail_at=fail_at,pass_at=pass_at,remarks=remarks)
             else:
                 #print(grade)
                 cgpa=round(totalgpa/6,2)
@@ -172,7 +210,8 @@ def createResult(request):
                     grade="Absent"
                 if student:
                     print(student.name)
-                    result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=total,cgpa=cgpa,grade=grade)
+                    remarks="Promoted"                   
+                    result_individual=Result.objects.create(class_roll=roll['class_roll'],name=student.name,position=count,group=student.group,section=student.section,exam=exam,total=total,cgpa=cgpa,grade=grade,present_at=present_at,absent_at=absent_at,fail_at=fail_at,pass_at=pass_at,remarks=remarks)
             count=count+1
 
             
