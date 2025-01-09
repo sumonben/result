@@ -91,7 +91,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432'
     },
-    'mysql': {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gmrwc',
         'USER': 'root',
@@ -99,7 +99,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306'
     },
-    'default': {
+    'msql': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
